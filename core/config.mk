@@ -320,9 +320,7 @@ FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 # be device and hardware independent.
 $(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/ril)
 
-ifneq ($(BLASTER_BUILD),)
 include vendor/aosp/config/BoardConfigBlaster.mk
-endif
 
 
 # The build system exposes several variables for where to find the kernel
@@ -1173,7 +1171,6 @@ include $(BUILD_SYSTEM)/ninja_config.mk
 include $(BUILD_SYSTEM)/soong_config.mk
 endif
 
-ifneq ($(BLASTER_BUILD),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
 # $(eval include device/custom/sepolicy/common/sepolicy.mk)
@@ -1183,7 +1180,6 @@ ifneq ($(BLASTER_BUILD),)
 
 # Include any vendor specific apicheck.mk file
 -include $(TOPDIR)vendor/*/build/core/apicheck.mk
-endif
 
 -include external/linux-kselftest/android/kselftest_test_list.mk
 -include external/ltp/android/ltp_package_list.mk
