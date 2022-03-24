@@ -1163,6 +1163,10 @@ endif
 dont_bother_goals := out \
     product-graph dump-products
 
+## We need to be sure the global selinux policies are included
+## last, to avoid accidental resetting by device configs
+$(eval include device/aosp/sepolicy/common/sepolicy.mk)
+
 # Make ANDROID Soong config variables visible to Android.mk files, for
 # consistency with those defined in BoardConfig.mk files.
 include $(BUILD_SYSTEM)/android_soong_config_vars.mk
@@ -1171,10 +1175,6 @@ ifeq ($(CALLED_FROM_SETUP),true)
 include $(BUILD_SYSTEM)/ninja_config.mk
 include $(BUILD_SYSTEM)/soong_config.mk
 endif
-
-## We need to be sure the global selinux policies are included
-## last, to avoid accidental resetting by device configs
-$(eval include device/aosp/sepolicy/common/sepolicy.mk)
 
 # Include any vendor specific config.mk file
 -include $(TOPDIR)vendor/*/build/core/config.mk
